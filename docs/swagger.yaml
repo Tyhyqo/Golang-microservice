@@ -26,15 +26,15 @@ definitions:
 info:
   contact: {}
 paths:
-  /orders:
+  /order_handler:
     post:
       consumes:
       - application/json
-      description: Create a new order
+      description: Create a new order_handler
       parameters:
       - description: Order
         in: body
-        name: order
+        name: order_handler
         required: true
         schema:
           $ref: '#/definitions/domain.Order'
@@ -53,14 +53,14 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Create a new order
+      summary: Create a new order_handler
       tags:
-      - orders
-  /orders/{id}:
+      - order_handler
+  /order_handler/{id}:
     get:
       consumes:
       - application/json
-      description: Get an order by ID
+      description: Get an order_handler by ID
       parameters:
       - description: Order ID
         in: path
@@ -82,13 +82,13 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Get an order by ID
+      summary: Get an order_handler by ID
       tags:
-      - orders
+      - order_handler
     put:
       consumes:
       - application/json
-      description: Update an order by ID
+      description: Update an order_handler by ID
       parameters:
       - description: Order ID
         in: path
@@ -97,7 +97,7 @@ paths:
         type: integer
       - description: Order
         in: body
-        name: order
+        name: order_handler
         required: true
         schema:
           $ref: '#/definitions/domain.Order'
@@ -116,14 +116,14 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Update an order by ID
+      summary: Update an order_handler by ID
       tags:
-      - orders
+      - order_handler
   /users/login:
     post:
       consumes:
       - application/json
-      description: Login a user
+      description: Login a user_handler
       parameters:
       - description: Credentials
         in: body
@@ -150,18 +150,18 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Login a user
+      summary: Login a user_handler
       tags:
       - users
   /users/register:
     post:
       consumes:
       - application/json
-      description: Register a new user
+      description: Register a new user_handler
       parameters:
       - description: User
         in: body
-        name: user
+        name: user_handler
         required: true
         schema:
           $ref: '#/definitions/domain.User'
@@ -180,7 +180,7 @@ paths:
           description: Internal Server Error
           schema:
             type: string
-      summary: Register a new user
+      summary: Register a new user_handler
       tags:
       - users
 swagger: "2.0"

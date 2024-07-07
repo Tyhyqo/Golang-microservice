@@ -14,15 +14,6 @@ type Config struct {
 	JWTSecret  string
 }
 
-type DBConfig struct {
-	Host     string
-	User     string
-	Password string
-	DBName   string
-	Port     string
-	SSLMode  string
-}
-
 func LoadConfig() *Config {
 	err := godotenv.Load()
 	if err != nil {
@@ -32,14 +23,7 @@ func LoadConfig() *Config {
 	return &Config{
 		ServerPort: os.Getenv("SERVER_PORT"),
 		LogLevel:   os.Getenv("LOG_LEVEL"),
-		DB: DBConfig{
-			Host:     os.Getenv("DB_HOST"),
-			User:     os.Getenv("DB_USER"),
-			Password: os.Getenv("DB_PASSWORD"),
-			DBName:   os.Getenv("DB_NAME"),
-			Port:     os.Getenv("DB_PORT"),
-			SSLMode:  os.Getenv("DB_SSLMODE"),
-		},
-		JWTSecret: os.Getenv("JWT_SECRET"),
+		DB:         LoadDBConfig(),
+		JWTSecret:  os.Getenv("JWT_SECRET"),
 	}
 }

@@ -11,6 +11,6 @@ func main() {
 
 	log := logger.NewLogger(config.LogLevel)
 
-	myServer := server.NewServer(config, log)
-	myServer.Run()
+	tackingService := server.NewServer(config, log)
+	tackingService.Run()
 }

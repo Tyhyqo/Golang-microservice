@@ -15,9 +15,9 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/orders": {
+        "/order_handler": {
             "post": {
-                "description": "Create a new order",
+                "description": "Create a new order_handler",
                 "consumes": [
                     "application/json"
                 ],
@@ -25,13 +25,13 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "orders"
+                    "order_handler"
                 ],
-                "summary": "Create a new order",
+                "summary": "Create a new order_handler",
                 "parameters": [
                     {
                         "description": "Order",
-                        "name": "order",
+                        "name": "order_handler",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -61,9 +61,9 @@ const docTemplate = `{
                 }
             }
         },
-        "/orders/{id}": {
+        "/order_handler/{id}": {
             "get": {
-                "description": "Get an order by ID",
+                "description": "Get an order_handler by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -71,9 +71,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "orders"
+                    "order_handler"
                 ],
-                "summary": "Get an order by ID",
+                "summary": "Get an order_handler by ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -105,7 +105,7 @@ const docTemplate = `{
                 }
             },
             "put": {
-                "description": "Update an order by ID",
+                "description": "Update an order_handler by ID",
                 "consumes": [
                     "application/json"
                 ],
@@ -113,9 +113,9 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "orders"
+                    "order_handler"
                 ],
-                "summary": "Update an order by ID",
+                "summary": "Update an order_handler by ID",
                 "parameters": [
                     {
                         "type": "integer",
@@ -126,7 +126,7 @@ const docTemplate = `{
                     },
                     {
                         "description": "Order",
-                        "name": "order",
+                        "name": "order_handler",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -158,7 +158,7 @@ const docTemplate = `{
         },
         "/users/login": {
             "post": {
-                "description": "Login a user",
+                "description": "Login a user_handler",
                 "consumes": [
                     "application/json"
                 ],
@@ -168,7 +168,7 @@ const docTemplate = `{
                 "tags": [
                     "users"
                 ],
-                "summary": "Login a user",
+                "summary": "Login a user_handler",
                 "parameters": [
                     {
                         "description": "Credentials",
@@ -210,7 +210,7 @@ const docTemplate = `{
         },
         "/users/register": {
             "post": {
-                "description": "Register a new user",
+                "description": "Register a new user_handler",
                 "consumes": [
                     "application/json"
                 ],
@@ -220,11 +220,11 @@ const docTemplate = `{
                 "tags": [
                     "users"
                 ],
-                "summary": "Register a new user",
+                "summary": "Register a new user_handler",
                 "parameters": [
                     {
                         "description": "User",
-                        "name": "user",
+                        "name": "user_handler",
                         "in": "body",
                         "required": true,
                         "schema": {

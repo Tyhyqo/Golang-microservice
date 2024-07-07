@@ -4,10 +4,6 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type logger struct {
-	l *logrus.Logger
-}
-
 func NewLogger(level string) *logrus.Logger {
 	log := logrus.New()
 
