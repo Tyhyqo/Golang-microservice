@@ -12,18 +12,24 @@ import (
 // @Tags users
 // @Accept json
 // @Produce json
-// @Param user_handler body domain.User true "User"
-// @Success 201 {object} domain.User
+// @Param user_handler body domain.UserWeb true "UserWeb"
+// @Success 201 {object} domain.UserWeb
 // @Failure 400 {string} string 'StatusBadRequest'
 // @Failure 500 {string} string 'StatusInternalServerError'
 // @Router /users/register [post]
 func (h *UserHandler) RegisterUser(c echo.Context) error {
-	user := new(domain.User)
+	user := new(domain.UserWeb)
 	if err := c.Bind(user); err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
-	if err := h.service.Register(user); err != nil {
+	newUser := domain.UserDTO{
+		Login:     user.Login,
+		Password:  user.Password,
+		IsCourier: user.IsCourier,
+	}
+
+	if err := h.service.Register(newUser); err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 

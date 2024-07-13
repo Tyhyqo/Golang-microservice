@@ -1,13 +1,20 @@
 package domain
 
-import (
-	"time"
-)
+import "github.com/golang-jwt/jwt"
 
-type User struct {
-	ID        uint      `gorm:"primaryKey" json:"id"`
-	Username  string    `gorm:"unique;not null" json:"username"`
-	Password  string    `gorm:"not null" json:"-"`
-	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
+type UserDTO struct {
+	Login     string `gorm:"unique;not null;foreignKey"`
+	Password  string `gorm:"not null"`
+	IsCourier bool   `gorm:"not null"`
+}
+
+type UserWeb struct {
+	Login     string `json:"login"`
+	Password  string `json:"hash_password"`
+	IsCourier bool   `json:"isCourier"`
+}
+
+type ClaimsUser struct {
+	Login string `json:"login"`
+	jwt.StandardClaims
 }

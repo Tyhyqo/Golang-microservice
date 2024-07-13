@@ -15,6 +15,23 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/logout": {
+            "post": {
+                "description": "Logout the user by clearing the JWT cookie",
+                "tags": [
+                    "users"
+                ],
+                "summary": "Logout the user",
+                "responses": {
+                    "200": {
+                        "description": "logged out successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/order_handler": {
             "post": {
                 "description": "Create a new order_handler",
@@ -156,6 +173,32 @@ const docTemplate = `{
                 }
             }
         },
+        "/protected": {
+            "get": {
+                "description": "Access a protected resource with a valid JWT",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "protected"
+                ],
+                "summary": "Access a protected resource",
+                "responses": {
+                    "200": {
+                        "description": "protected resource",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/users/login": {
             "post": {
                 "description": "Login a user_handler",
@@ -171,15 +214,12 @@ const docTemplate = `{
                 "summary": "Login a user_handler",
                 "parameters": [
                     {
-                        "description": "Credentials",
-                        "name": "credentials",
+                        "description": "UserWeb",
+                        "name": "user_handler",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "type": "string"
-                            }
+                            "$ref": "#/definitions/domain.UserWeb"
                         }
                     }
                 ],
@@ -223,12 +263,12 @@ const docTemplate = `{
                 "summary": "Register a new user_handler",
                 "parameters": [
                     {
-                        "description": "User",
+                        "description": "UserWeb",
                         "name": "user_handler",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/domain.User"
+                            "$ref": "#/definitions/domain.UserWeb"
                         }
                     }
                 ],
@@ -236,7 +276,7 @@ const docTemplate = `{
                     "201": {
                         "description": "Created",
                         "schema": {
-                            "$ref": "#/definitions/domain.User"
+                            "$ref": "#/definitions/domain.UserWeb"
                         }
                     },
                     "400": {
@@ -276,19 +316,16 @@ const docTemplate = `{
                 }
             }
         },
-        "domain.User": {
+        "domain.UserWeb": {
             "type": "object",
             "properties": {
-                "created_at": {
+                "hash_password": {
                     "type": "string"
                 },
-                "id": {
-                    "type": "integer"
+                "isCourier": {
+                    "type": "boolean"
                 },
-                "updated_at": {
-                    "type": "string"
-                },
-                "username": {
+                "login": {
                     "type": "string"
                 }
             }

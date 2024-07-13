@@ -7,8 +7,8 @@ import (
 )
 
 type UserRepository interface {
-	Create(user *domain.User) error
-	GetByUsername(username string) (*domain.User, error)
+	Create(user domain.UserDTO) error
+	GetByLogin(username string) (*domain.UserDTO, error)
 }
 
 type userRepository struct {
@@ -19,12 +19,12 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	return &userRepository{db: db}
 }
 
-func (r *userRepository) Create(user *domain.User) error {
+func (r *userRepository) Create(user domain.UserDTO) error {
 	return r.db.Create(user).Error
 }
 
-func (r *userRepository) GetByUsername(username string) (*domain.User, error) {
-	var user domain.User
-	err := r.db.Where("username = ?", username).First(&user).Error
+func (r *userRepository) GetByLogin(username string) (*domain.UserDTO, error) {
+	var user domain.UserDTO
+	err := r.db.Where("login = ?", username).First(&user).Error
 	return &user, err
 }

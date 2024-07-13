@@ -38,7 +38,7 @@ func (s *Server) Run() {
 	}
 	s.db = database
 
-	err = s.db.AutoMigrate(&domain.Order{}, &domain.User{})
+	err = s.db.AutoMigrate(&domain.Order{}, &domain.UserDTO{})
 	if err != nil {
 		s.logger.Fatal("Could not run migrations")
 	}
@@ -64,9 +64,11 @@ func (s *Server) initRoutes() {
 
 	s.app.POST("/users/register", userHandler.RegisterUser)
 	s.app.POST("/users/login", userHandler.LoginUser)
+	s.app.POST("/users/logout", userHandler.LogoutUser)
+	s.app.GET("/users/protected", userHandler.Protected, userService.JWTMiddleware)
 
 	r := s.app.Group("/order_handler")
-	r.Use(http.JWTMiddleware(s.config.JWTSecret))
+	r.Use(http.JWTMiddleware1(s.config.JWTSecret))
 	r.POST("", orderHandler.CreateOrder)
 	r.GET("/:id", orderHandler.GetOrder)
 	r.PUT("/:id", orderHandler.UpdateOrder)

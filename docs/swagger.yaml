@@ -12,20 +12,29 @@ definitions:
       updated_at:
         type: string
     type: object
-  domain.User:
+  domain.UserWeb:
     properties:
-      created_at:
+      hash_password:
         type: string
-      id:
-        type: integer
-      updated_at:
-        type: string
-      username:
+      isCourier:
+        type: boolean
+      login:
         type: string
     type: object
 info:
   contact: {}
 paths:
+  /logout:
+    post:
+      description: Logout the user by clearing the JWT cookie
+      responses:
+        "200":
+          description: logged out successfully
+          schema:
+            type: string
+      summary: Logout the user
+      tags:
+      - users
   /order_handler:
     post:
       consumes:
@@ -119,20 +128,35 @@ paths:
       summary: Update an order_handler by ID
       tags:
       - order_handler
+  /protected:
+    get:
+      description: Access a protected resource with a valid JWT
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: protected resource
+          schema:
+            type: string
+        "401":
+          description: unauthorized
+          schema:
+            type: string
+      summary: Access a protected resource
+      tags:
+      - protected
   /users/login:
     post:
       consumes:
       - application/json
       description: Login a user_handler
       parameters:
-      - description: Credentials
+      - description: UserWeb
         in: body
-        name: credentials
+        name: user_handler
         required: true
         schema:
-          additionalProperties:
-            type: string
-          type: object
+          $ref: '#/definitions/domain.UserWeb'
       produces:
       - application/json
       responses:
@@ -159,19 +183,19 @@ paths:
       - application/json
       description: Register a new user_handler
       parameters:
-      - description: User
+      - description: UserWeb
         in: body
         name: user_handler
         required: true
         schema:
-          $ref: '#/definitions/domain.User'
+          $ref: '#/definitions/domain.UserWeb'
       produces:
       - application/json
       responses:
         "201":
           description: Created
           schema:
-            $ref: '#/definitions/domain.User'
+            $ref: '#/definitions/domain.UserWeb'
         "400":
           description: Bad Request
           schema:
